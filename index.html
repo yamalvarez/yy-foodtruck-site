@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Y&Y Window Services Corp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+    }
+    header {
+      background: url('your-background-image.jpg') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .cta-button {
+      background-color: #888;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 30px;
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+    .social-icons a {
+      color: white;
+      font-size: 20px;
+    }
+    .gallery {
+      padding: 60px 30px;
+      background-color: #1a1a1a;
+      text-align: center;
+    }
+    .gallery h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid white;
+    }
+    .tiktok-video {
+      margin-top: 40px;
+    }
+    iframe {
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div><strong>Y&Y Window Services</strong></div>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#portafolio">Portafolio</a></li>
+      <li><a href="#cotizador">Cotizar</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </nav>
+
+  <header id="inicio">
+    <h1>Construimos tu Food Truck ideal</h1>
+    <a href="#cotizador" class="cta-button">Solicitar Cotización</a>
+  </header>
+
+  <section class="gallery" id="portafolio">
+    <h2>Nuestro Trabajo</h2>
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/300x200?text=Truck+1" alt="Proyecto 1">
+      <img src="https://via.placeholder.com/300x200?text=Truck+2" alt="Proyecto 2">
+      <img src="https://via.placeholder.com/300x200?text=Truck+3" alt="Proyecto 3">
+      <img src="https://via.placeholder.com/300x200?text=Truck+4" alt="Proyecto 4">
+    </div>
+    <div class="tiktok-video">
+      <iframe src="https://www.tiktok.com/embed/v2/7262172855219776782" width="325" height="580" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+
+</body>
+</html>
