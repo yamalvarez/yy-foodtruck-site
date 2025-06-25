@@ -1,0 +1,16 @@
+backend:
+  name: git-gateway
+  branch: main  # adjust if your branch is different
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "gallery"
+    label: "Gallery"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "TikTok Video URL", name: "video", widget: "string" }

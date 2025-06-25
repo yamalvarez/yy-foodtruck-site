@@ -10,6 +10,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
       font-family: Arial, sans-serif;
       background-color: #000;
       color: #fff;
@@ -69,13 +70,14 @@
       }
     }
     .main-content {
-      flex: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 30px 50px;
-      flex-wrap: wrap;
-      gap: 30px;
+      height: calc(100vh - 80px);
+      padding: 20px 40px;
+      flex-wrap: nowrap;
+      gap: 20px;
+      overflow: hidden;
     }
     .text-section {
       max-width: 500px;
@@ -100,15 +102,19 @@
       border-radius: 8px;
       display: inline-block;
     }
-    .image-section {
-      flex: 1;
-      text-align: center;
-    }
+
     .image-section img {
       width: 100%;
       max-width: 400px;
       border-radius: 12px;
     }
+
+    .gallery-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #f1c40f;
+    }
+
     @media (max-width: 768px) {
       .main-content {
         flex-direction: column;
@@ -118,6 +124,19 @@
       .text-section {
         text-align: center;
       }
+    }
+    .video-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 325px;
+      transform: scale(0.85);
+      transform-origin: center;
+    }
+    .tiktok-embed {
+      transform: scale(0.9); /* reduce un poco el tamaño */
+      transform-origin: top center;
     }
   </style>
 </head>
@@ -144,12 +163,18 @@
       <p>We design and build custom food trucks fully equipped to your needs.</p>
       <a href="#estimate" class="cta-button">REQUEST ESTIMATE</a>
     </div>
-    <div class="image-section">
-      <img src="images/food-truck.png" alt="Food Truck Example" />
+
+    <!-- TikTok videos alineados -->
+    <div class="video-section">
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@yyfoodtruck/video/7481750916065004842" data-video-id="7481750916065004842" style="max-width: 325px; min-width: 200px;">
+        <section>Loading…</section>
+      </blockquote>
     </div>
   </section>
+
 </div>
 
+<script async src="https://www.tiktok.com/embed.js"></script>
 <script>
   function toggleMenu() {
     const nav = document.getElementById('navLinks');
