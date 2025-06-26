@@ -122,19 +122,7 @@
         text-align: center;
       }
     }
-    .video-section {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 325px;
-      transform: scale(0.85);
-      transform-origin: center;
-    }
-    .tiktok-embed {
-      transform: scale(0.9); /* reduce un poco el tamaño */
-      transform-origin: top center;
-    }
+
     .carousel-section {
       padding: 20px 40px;
     }
@@ -159,6 +147,31 @@
       flex: 0 0 auto;
       width: 325px;                /* TikTok size */
       min-height: 400px;           /* ✅ Add */
+    }
+    .carousel-wrapper {
+      position: relative;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .carousel-arrow.left {
+      left: 10px;
+    }
+
+    .carousel-arrow.right {
+      right: 10px;
     }
 
   </style>
@@ -188,12 +201,19 @@
     </div>
   </section> <!-- ✅ Properly close the main-content section -->
 
-  <!-- ✅ Carousel now outside of main-content -->
   <section class="carousel-section">
     <h2 style="color: gold; text-align: center;">Featured Builds</h2>
-    <div class="carousel-container" id="carousel">
-      <!-- Carousel content will go here -->
+
+    <div class="carousel-wrapper" style="position: relative;">
+      <button class="carousel-arrow left" onclick="scrollCarousel(-1)">❮</button>
+
+      <div class="carousel-container" id="carousel">
+        <!-- Carousel items are loaded here -->
+      </div>
+
+      <button class="carousel-arrow right" onclick="scrollCarousel(1)">❯</button>
     </div>
+
     <div style="text-align: center; margin-top: 20px;">
       <a href="gallery.html" class="cta-button">See Full Gallery</a>
     </div>
@@ -205,6 +225,11 @@
   function toggleMenu() {
     const nav = document.getElementById('navLinks');
     nav.classList.toggle('active');
+  }
+  function scrollCarousel(direction) {
+    const carousel = document.getElementById('carousel');
+    const scrollAmount = 320; // Adjust based on your item width + gap
+    carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
   }
 </script>
 <script src="js/gallery-loader.js"></script>
