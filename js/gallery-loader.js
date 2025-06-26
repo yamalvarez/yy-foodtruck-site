@@ -14,7 +14,9 @@ async function loadGallery() {
 
   const createTikTokEmbed = (url) => {
     const idMatch = url.match(/video\/(\d+)/);
-    const videoId = idMatch ? videoId = idMatch[1] : '';
+    if (!idMatch) return null;
+
+    const videoId = idMatch[1]; // ✅ Only use it after match check
     const block = document.createElement('blockquote');
     block.className = 'tiktok-embed';
     block.setAttribute('cite', url);
