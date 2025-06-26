@@ -1,37 +1,37 @@
-console.log("✅ gallery-loader.js is running");
 async function loadGallery() {
+  console.log("🚀 Starting loadGallery");
+
   const baseURL = 'https://raw.githubusercontent.com/yamalvarez/yy-foodtruck-site/main/content/gallery/';
-  const files = ['video1.md', 'video2.md', 'video3.md']; // Add more as needed
+  const files = ['video1.md', 'video2.md', 'video3.md'];
 
   const fetchMarkdown = async (file) => {
+    const url = baseURL + file;
+    console.log(`📥 Fetching: ${url}`);
     try {
-      const res = await fetch(baseURL + file);
-      if (!res.ok) throw new Error(`❌ Failed to fetch ${file}`);
+      const res = await fetch(url);
+      if (!res.ok) {
+        console.warn(`❌ Failed to fetch ${file}: ${res.status}`);
+        return '';
+      }
+      const text = await res.text();
       console.log(`✅ Loaded ${file}`);
-      return res.text();
+      return text;
     } catch (err) {
-      console.error(err.message);
+      console.error(`🔥 Error fetching ${file}`, err);
       return '';
     }
   };
 
   const extractTikTokURL = (text) => {
     const match = text.match(/https:\/\/www\.tiktok\.com\/@[^\s)]+/);
+    console.log("🔍 Extracted URL:", match ? match[0] : "None");
     return match ? match[0] : null;
-  };
-
-  const isTikTokVideoValid = async (url) => {
-    try {
-      const response = await fetch(`https://www.tiktok.com/oembed?url=${url}`);
-      return response.ok;
-    } catch {
-      return false;
-    }
   };
 
   const createTikTokEmbed = (url) => {
     const idMatch = url.match(/video\/(\d+)/);
     const videoId = idMatch ? idMatch[1] : '';
+    console.log("🎞️ Creating embed for:", videoId);
     const block = document.createElement('blockquote');
     block.className = 'tiktok-embed';
     block.setAttribute('cite', url);
@@ -43,33 +43,33 @@ async function loadGallery() {
 
   const results = await Promise.all(files.map(fetchMarkdown));
 
-  for (let i = 0; i < results.length; i++) {
-    const text = results[i];
+  results.forEach((text, index) => {
     const url = extractTikTokURL(text);
-    if (url && await isTikTokVideoValid(url)) {
+    if (url) {
       const embed = createTikTokEmbed(url);
 
-      // Add to homepage carousel (only first 3)
-      if (i < 3) {
-        const carousel = document.getElementById('carousel');
-        if (carousel) {
-          carousel.appendChild(embed.cloneNode(true));
-          console.log(`🎥 Appended to carousel: ${url}`);
-        }
+      const carousel = document.getElementById('carousel');
+      if (carousel) {
+        console.log("🧩 Appending to carousel:", url);
+        carousel.appendChild(embed.cloneNode(true));
+      } else {
+        console.warn("❌ Carousel container not found");
       }
 
-      // Add to full gallery (optional)
       const fullGallery = document.getElementById('gallery-container');
-      if (fullGallery) fullGallery.appendChild(embed);
+      if (fullGallery) {
+        fullGallery.appendChild(embed);
+      }
     } else {
-      console.warn(`⚠️ Invalid or private TikTok video skipped: ${url}`);
+      console.warn("⚠️ No valid TikTok URL found in file");
     }
-  }
+  });
 
-  // Load TikTok embed script (after content)
   const script = document.createElement('script');
   script.src = 'https://www.tiktok.com/embed.js';
   script.async = true;
+  script.onload = () => console.log("📥 TikTok embed script loaded");
   document.body.appendChild(script);
-  console.log('📥 TikTok embed script loaded');
 }
+
+loadGallery();
