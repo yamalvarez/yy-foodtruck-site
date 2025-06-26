@@ -138,6 +138,29 @@
       transform: scale(0.9); /* reduce un poco el tamaño */
       transform-origin: top center;
     }
+    .carousel-section {
+      padding: 20px 40px;
+    }
+
+    .carousel-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      padding: 10px;
+    }
+
+    .carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-container > * {
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+      width: 300px;
+      max-height: 550px;
+    }
+
   </style>
 </head>
 <body>
@@ -164,10 +187,15 @@
       <a href="#estimate" class="cta-button">REQUEST ESTIMATE</a>
     </div>
 
-    <section class="video-section gallery-grid">
-      <!-- TikTok videos will load here dynamically from GitHub -->
+    <section class="carousel-section">
+      <h2 style="color: gold; text-align: center;">Featured Builds</h2>
+      <div class="carousel-container" id="carousel">
+        <!-- Carousel content will go here -->
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="gallery.html" class="cta-button">See Full Gallery</a>
+      </div>
     </section>
-  </section>
 
 </div>
 
