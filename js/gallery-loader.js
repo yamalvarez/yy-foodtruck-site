@@ -1,10 +1,15 @@
 async function loadGallery() {
   const baseURL = 'https://raw.githubusercontent.com/yamalvarez/yy-foodtruck-site/main/content/gallery/';
-  const files = ['video1.md', 'video2.md', 'video3.md']; // Add more if needed
+  const files = ['video1.md', 'video2.md', 'video3.md'];
 
   const fetchMarkdown = async (file) => {
     const res = await fetch(baseURL + file);
-    return res.ok ? res.text() : '';
+    if (!res.ok) {
+      console.warn(`❌ Failed to load ${file}`);
+      return '';
+    }
+    console.log(`✅ Loaded ${file}`);
+    return res.text();
   };
 
   const extractTikTokURL = (text) => {
@@ -26,28 +31,38 @@ async function loadGallery() {
 
   const results = await Promise.all(files.map(fetchMarkdown));
 
+  const carousel = document.getElementById('carousel');
+  const fullGallery = document.getElementById('gallery-container'); // optional
+
   results.forEach((text, index) => {
     const url = extractTikTokURL(text);
     if (url) {
       const embed = createTikTokEmbed(url);
 
-      // Add to homepage carousel (only first 3)
-      if (index < 3) {
-        const carousel = document.getElementById('carousel');
-        if (carousel) carousel.appendChild(embed.cloneNode(true));
+      if (carousel && index < 3) {
+        carousel.appendChild(embed.cloneNode(true));
+        console.log(`🎥 Appended to carousel: ${url}`);
       }
 
-      // Add to full gallery (if available)
-      const fullGallery = document.getElementById('gallery-container');
-      if (fullGallery) fullGallery.appendChild(embed);
+      if (fullGallery) {
+        fullGallery.appendChild(embed);
+      }
+    } else {
+      console.warn(`⚠️ No TikTok URL found in video${index + 1}.md`);
     }
   });
 
-  // Load TikTok embed script
-  const script = document.createElement('script');
-  script.src = 'https://www.tiktok.com/embed.js';
-  script.async = true;
-  document.body.appendChild(script);
+  // Force TikTok to re-scan embeds
+  if (window.tiktok && window.tiktok.Embed) {
+    window.tiktok.Embed.load();
+    console.log('📦 TikTok embed reload triggered');
+  } else {
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    script.onload = () => console.log('📥 TikTok embed script loaded');
+    document.body.appendChild(script);
+  }
 }
 
 loadGallery();
