@@ -1,48 +1,53 @@
-
 async function loadGallery() {
-  const repo = "yamalvarez/yy-foodtruck-site";
-  const branch = "main";
-  const apiUrl = `https://api.github.com/repos/${repo}/contents/content/gallery`;
+  const baseURL = 'https://raw.githubusercontent.com/yamalvarez/yy-foodtruck-site/main/content/gallery/';
+  const files = ['video1.md', 'video2.md', 'video3.md']; // Add more if needed
 
-  const galleryContainer = document.querySelector(".gallery-grid");
+  const fetchMarkdown = async (file) => {
+    const res = await fetch(baseURL + file);
+    return res.ok ? res.text() : '';
+  };
 
-  try {
-    const res = await fetch(apiUrl);
-    const files = await res.json();
+  const extractTikTokURL = (text) => {
+    const match = text.match(/https:\/\/www\.tiktok\.com\/@[^\s)]+/);
+    return match ? match[0] : null;
+  };
 
-    for (const file of files) {
-      if (file.name.endsWith(".md")) {
-        const fileRes = await fetch(file.download_url);
-        const content = await fileRes.text();
+  const createTikTokEmbed = (url) => {
+    const idMatch = url.match(/video\/(\d+)/);
+    const videoId = idMatch ? idMatch[1] : '';
+    const block = document.createElement('blockquote');
+    block.className = 'tiktok-embed';
+    block.setAttribute('cite', url);
+    block.setAttribute('data-video-id', videoId);
+    block.style = 'max-width: 325px; min-width: 200px;';
+    block.innerHTML = '<section>Loading…</section>';
+    return block;
+  };
 
-        const match = content.match(/video:\s*(.+)/i);
-        if (match && match[1]) {
-          const videoUrl = match[1].trim();
-          const videoId = videoUrl.split("/").pop().split("?")[0];
+  const results = await Promise.all(files.map(fetchMarkdown));
 
-          const block = document.createElement("blockquote");
-          block.className = "tiktok-embed";
-          block.setAttribute("cite", videoUrl);
-          block.setAttribute("data-video-id", videoId);
-          block.style.maxWidth = "325px";
-          block.style.minWidth = "200px";
+  results.forEach((text, index) => {
+    const url = extractTikTokURL(text);
+    if (url) {
+      const embed = createTikTokEmbed(url);
 
-          const section = document.createElement("section");
-          section.innerText = "Loading…";
-
-          block.appendChild(section);
-          galleryContainer.appendChild(block);
-        }
+      // Add to homepage carousel (only first 3)
+      if (index < 3) {
+        const carousel = document.getElementById('carousel');
+        if (carousel) carousel.appendChild(embed.cloneNode(true));
       }
-    }
 
-    // Re-trigger TikTok embed script
-    const embedScript = document.createElement("script");
-    embedScript.src = "https://www.tiktok.com/embed.js";
-    document.body.appendChild(embedScript);
-  } catch (err) {
-    console.error("Error loading TikTok gallery:", err);
-  }
+      // Add to full gallery (if available)
+      const fullGallery = document.getElementById('gallery-container');
+      if (fullGallery) fullGallery.appendChild(embed);
+    }
+  });
+
+  // Load TikTok embed script
+  const script = document.createElement('script');
+  script.src = 'https://www.tiktok.com/embed.js';
+  script.async = true;
+  document.body.appendChild(script);
 }
 
-document.addEventListener("DOMContentLoaded", loadGallery);
+loadGallery();
