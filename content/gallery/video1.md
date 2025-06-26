@@ -1,2 +1,2 @@
 title: First TikTok Truck
-video: https://www.tiktok.com/@yyfoodtruck/video/7481750916065004842
+video: https://www.tiktok.com/@scout2015/video/6718335390845095173

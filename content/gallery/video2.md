@@ -1,2 +1,2 @@
 title: Second Truck
-video: https://www.tiktok.com/@yyfoodtruck/video/7481750916065004842
+https://www.tiktok.com/@tiktok/video/6807491984882765062
