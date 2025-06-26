@@ -1,3 +1,4 @@
+console.log("✅ gallery-loader.js is running");
 async function loadGallery() {
   const baseURL = 'https://raw.githubusercontent.com/yamalvarez/yy-foodtruck-site/main/content/gallery/';
   const files = ['video1.md', 'video2.md', 'video3.md']; // Add more as needed
