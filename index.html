@@ -139,12 +139,15 @@
       padding: 20px 40px;
     }
 
-    .carousel-container {
+    carousel-container {
       display: flex;
       overflow-x: auto;
       gap: 20px;
       scroll-snap-type: x mandatory;
       padding: 10px;
+
+      min-height: 400px;           /* ✅ Ensures space is reserved */
+      background-color: #111;      /* ✅ Optional: makes it visible for debug */
     }
 
     .carousel-container::-webkit-scrollbar {
@@ -154,8 +157,8 @@
     .carousel-container > * {
       scroll-snap-align: start;
       flex: 0 0 auto;
-      width: 300px;
-      max-height: 550px;
+      width: 325px;                /* TikTok size */
+      min-height: 400px;           /* ✅ Add */
     }
 
   </style>
@@ -189,6 +192,7 @@
   <section class="carousel-section">
     <h2 style="color: gold; text-align: center;">Featured Builds</h2>
     <div class="carousel-container" id="carousel">
+      <div style="width: 325px; height: 400px; background: #333; text-align:center;">TEST BOX 1</div>
       <!-- Carousel content will go here -->
     </div>
     <div style="text-align: center; margin-top: 20px;">
@@ -198,7 +202,6 @@
 
 </div> <!-- ✅ Close container -->
 
-<script async src="https://www.tiktok.com/embed.js"></script>
 <script>
   function toggleMenu() {
     const nav = document.getElementById('navLinks');
