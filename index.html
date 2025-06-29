@@ -23,10 +23,11 @@
     }
     .carousel {
       position: relative;
-      width: 320px; /* Video width */
-      height: 580px; /* Video height */
+      width: 325px;      /* Coincide con el ancho del embed */
+      height: 580px;     /* Ajusta según tu video */
       overflow: hidden;
     }
+
     .carousel-item {
       display: none;
       width: 100%;
@@ -48,8 +49,8 @@
       padding: 0.5rem 1rem;
       border-radius: 50%;
     }
-    .carousel-arrow.left { left: -60px; }
-    .carousel-arrow.right { right: -60px; }
+    .carousel-arrow.left { left: 10px; }
+    .carousel-arrow.right { right: 10px; }
   </style>
 </head>
 <body>
@@ -96,7 +97,18 @@
     items.forEach((item, i) => {
       item.classList.toggle('active', i === index);
     });
+
+    // Remove old embed script if exists
+    const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
+    if (oldScript) oldScript.remove();
+
+    // Reload embed script
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
   }
+
 
   function nextSlide() {
     currentSlide = (currentSlide + 1) % videoUrls.length;
