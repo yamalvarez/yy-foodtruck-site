@@ -92,46 +92,31 @@
 
   function showSlide(index) {
     const container = document.getElementById('carouselItems');
-    const existing = container.firstChild;
-    if (existing) {
-      existing.style.opacity = 0;
-      setTimeout(() => {
-        container.innerHTML = "";
 
-        const url = videoUrls[index];
-        const embed = createTikTokEmbed(url);
-        if (embed) {
-          embed.style.opacity = 0;
-          embed.classList.add('carousel-item', 'active');
-          container.appendChild(embed);
+    // Limpia el slide anterior
+    container.innerHTML = "";
 
-          setTimeout(() => embed.style.opacity = 1, 50);
-        }
+    const url = videoUrls[index];
+    const embed = createTikTokEmbed(url);
+    if (embed) {
+      embed.style.opacity = 0;
+      embed.classList.add('carousel-item', 'active');
+      container.appendChild(embed);
 
-        const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
-        if (oldScript) oldScript.remove();
-
-        const script = document.createElement('script');
-        script.src = 'https://www.tiktok.com/embed.js';
-        script.async = true;
-        document.body.appendChild(script);
-      }, 300); // duration of fade-out
-    } else {
-      const url = videoUrls[index];
-      const embed = createTikTokEmbed(url);
-      if (embed) {
-        embed.style.opacity = 0;
-        embed.classList.add('carousel-item', 'active');
-        container.appendChild(embed);
-        setTimeout(() => embed.style.opacity = 1, 50);
-
-        const script = document.createElement('script');
-        script.src = 'https://www.tiktok.com/embed.js';
-        script.async = true;
-        document.body.appendChild(script);
-      }
+      setTimeout(() => embed.style.opacity = 1, 50);
     }
+
+    // Siempre elimina script anterior de TikTok si existe
+    const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
+    if (oldScript) oldScript.remove();
+
+    // Agrega script de TikTok después de insertar el nuevo bloque
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
   }
+
 
   function nextSlide() {
     currentSlide = (currentSlide + 1) % videoUrls.length;
