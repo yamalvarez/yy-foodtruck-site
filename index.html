@@ -73,14 +73,16 @@
     }
     .carousel {
       position: relative;
-      flex: 1;
-      max-width: 400px;
-      height: 450px;           /* Altura reducida */
+      width: 400px;       /* Ancho fijo */
+      height: 400px;      /* Alto fijo */
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-left: -30px;      /* Desplazado a la izquierda */
+      overflow: hidden;   /* Para que nada se salga del marco */
+      margin-left: -20px; /* Ajusta según necesites para alineación */
+      border-radius: 12px;/* Opcional: esquinas redondeadas */
     }
+
     .carousel-arrow {
       position: absolute;
       top: 50%;
