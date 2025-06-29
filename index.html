@@ -110,20 +110,23 @@
 
     .carousel-container {
       display: flex;
+      flex-direction: row; /* 👈 Asegura scroll horizontal */
       overflow-x: auto;
+      overflow-y: hidden;  /* 👈 Oculta scroll vertical */
       gap: 20px;
       scroll-snap-type: x mandatory;
-      padding: 10px;
       scroll-behavior: smooth;
-      margin: 0 40px;
+      padding: 10px;
     }
 
     .carousel-container > * {
       scroll-snap-align: start;
       flex: 0 0 auto;
       width: 300px;
-      max-height: 550px;
+      height: 540px;   /* 👈 Ajusta si necesitas */
+      overflow: hidden;
     }
+
 
     .carousel-container::-webkit-scrollbar {
       display: none;
