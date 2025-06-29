@@ -27,23 +27,22 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
-    }
-    .logo img {
-      height: 60px;
+      position: relative;
     }
     .logo {
       display: flex;
       align-items: center;
-      gap: 15px; /* espacio entre el logo y el título */
+      gap: 15px;
     }
-
+    .logo img {
+      height: 60px;
+    }
     .logo-title {
-      font-family: 'Cinzel', serif; /* usa Cinzel para elegancia */
+      font-family: 'Cinzel', serif;
       font-size: 1.2rem;
       color: #f1c40f;
-      white-space: nowrap; /* evita que se divida en dos líneas */
+      white-space: nowrap;
     }
-
     .nav-links {
       display: flex;
       gap: 20px;
@@ -53,7 +52,31 @@
       color: #fff;
       text-decoration: none;
       font-weight: bold;
-
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px; /* debajo del header */
+        right: 40px;
+        background-color: #111;
+        padding: 15px;
+        border-radius: 8px;
+        z-index: 100;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
     }
     .main-content {
       display: flex;
@@ -70,7 +93,7 @@
       margin-top: 15px;
     }
     .text-section h1 {
-      font-family: 'Cinzel', serif; /* ✅ usa Cinzel en títulos */
+      font-family: 'Cinzel', serif;
       font-size: 3rem;
       color: #f1c40f;
       margin-bottom: 20px;
@@ -125,7 +148,10 @@
       <img src="images/logo.png" alt="Y&Y Logo"/>
       <span class="logo-title">WINDOW SERVICES CORP</span>
     </div>
-    <nav class="nav-links">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <nav class="nav-links" id="navLinks">
       <a href="#services">Services</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#calculator">Calculator</a>
@@ -151,6 +177,11 @@
 </div>
 
 <script>
+  function toggleMenu() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('active');
+  }
+
   const videoUrls = [
     'https://www.tiktok.com/@scout2015/video/6718335390845095173',
     'https://www.tiktok.com/@tiktok/video/6807491984882765062',
