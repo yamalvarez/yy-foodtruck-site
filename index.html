@@ -1,139 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Y&Y Window Services Carousel with Effects</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-      padding: 20px;
-    }
-    .carousel {
-      position: relative;
-      width: 325px;
-      height: 580px;
-      overflow: hidden;
-    }
-    .carousel-item {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .carousel-item.active {
-      opacity: 1;
-    }
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      background: rgba(255, 215, 0, 0.8);
-      color: black;
-      border: none;
-      cursor: pointer;
-      z-index: 10;
-      padding: 0.5rem 1rem;
-      border-radius: 50%;
-    }
-    .carousel-arrow.left { left: 10px; }
-    .carousel-arrow.right { right: 10px; }
-  </style>
-</head>
-<body>
+function showSlide(index) {
+const container = document.getElementById('carouselItems');
+container.innerHTML = "";
+console.log("🧹 Cleaned container");
 
-<div class="container">
-  <h1>Featured Builds</h1>
+const url = videoUrls[index];
+console.log("🎯 Loading video URL:", url);
 
-  <div class="carousel">
-    <button class="carousel-arrow left" onclick="prevSlide()">&#10094;</button>
+const embed = createTikTokEmbed(url);
+if (embed) {
+embed.style.opacity = 0;
+embed.classList.add('carousel-item', 'active');
+container.appendChild(embed);
+console.log("✅ Embed appended");
 
-    <div id="carouselItems">
-      <!-- Videos will be injected here -->
-    </div>
+setTimeout(() => embed.style.opacity = 1, 50);
+} else {
+console.warn("❌ Embed creation failed for URL:", url);
+}
 
-    <button class="carousel-arrow right" onclick="nextSlide()">&#10095;</button>
-  </div>
-</div>
+const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
+if (oldScript) oldScript.remove();
 
-<script>
-  const videoUrls = [
-    'https://www.tiktok.com/@scout2015/video/6718335390845095173',
-    'https://www.tiktok.com/@tiktok/video/6807491984882765062',
-    'https://www.tiktok.com/@yyfoodtruck/video/7481750916065004842'
-  ];
-
-  let currentSlide = 0;
-
-  function createTikTokEmbed(url) {
-    const match = url.match(/video\/(\d+)/);
-    if (!match) return null;
-    const videoId = match[1];
-
-    const block = document.createElement('blockquote');
-    block.className = 'tiktok-embed carousel-item';
-    block.setAttribute('cite', url);
-    block.setAttribute('data-video-id', videoId);
-    block.style = 'max-width: 325px; min-width: 200px;';
-    block.innerHTML = '<section>Loading…</section>';
-    return block;
-  }
-
-  function showSlide(index) {
-    const container = document.getElementById('carouselItems');
-
-    // Limpia el slide anterior
-    container.innerHTML = "";
-
-    const url = videoUrls[index];
-    const embed = createTikTokEmbed(url);
-    if (embed) {
-      embed.style.opacity = 0;
-      embed.classList.add('carousel-item', 'active');
-      container.appendChild(embed);
-
-      setTimeout(() => embed.style.opacity = 1, 50);
-    }
-
-    // Siempre elimina script anterior de TikTok si existe
-    const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
-    if (oldScript) oldScript.remove();
-
-    // Agrega script de TikTok después de insertar el nuevo bloque
-    const script = document.createElement('script');
-    script.src = 'https://www.tiktok.com/embed.js';
-    script.async = true;
-    document.body.appendChild(script);
-  }
-
-
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % videoUrls.length;
-    showSlide(currentSlide);
-  }
-
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + videoUrls.length) % videoUrls.length;
-    showSlide(currentSlide);
-  }
-
-  function loadCarousel() {
-    showSlide(currentSlide);
-  }
-
-  document.addEventListener("DOMContentLoaded", loadCarousel);
-</script>
-
-</body>
-</html>
+const script = document.createElement('script');
+script.src = 'https://www.tiktok.com/embed.js';
+script.async = true;
+script.onload = () => console.log("📥 TikTok embed script loaded");
+document.body.appendChild(script);
+}
