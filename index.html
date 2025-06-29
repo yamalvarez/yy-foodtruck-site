@@ -28,13 +28,13 @@
       overflow: hidden;
     }
 
-    .carousel-item {
-      display: none;
-      width: 100%;
-      height: 100%;
+    carousel-item {
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
+
     .carousel-item.active {
-      display: block;
+      opacity: 1;
     }
     .carousel-arrow {
       position: absolute;
@@ -94,22 +94,54 @@
 
   function showSlide(index) {
     const container = document.getElementById('carouselItems');
-    container.innerHTML = ""; // 🔥 Clear old slide
 
-    const url = videoUrls[index];
-    const embed = createTikTokEmbed(url);
-    if (embed) container.appendChild(embed);
+    // Add fade-out effect
+    const existing = container.firstChild;
+    if (existing) {
+      existing.style.opacity = 0;
+      setTimeout(() => {
+        container.innerHTML = ""; // Remove old slide after fade-out
 
-    // Remove old TikTok script
-    const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
-    if (oldScript) oldScript.remove();
+        const url = videoUrls[index];
+        const embed = createTikTokEmbed(url);
+        if (embed) {
+          embed.style.opacity = 0; // Start hidden for fade-in
+          embed.classList.add('carousel-item', 'active');
+          container.appendChild(embed);
 
-    // Reload embed script for the new video
-    const script = document.createElement('script');
-    script.src = 'https://www.tiktok.com/embed.js';
-    script.async = true;
-    document.body.appendChild(script);
+          // Trigger fade-in
+          setTimeout(() => {
+            embed.style.opacity = 1;
+          }, 50);
+        }
+
+        // Remove and reload TikTok script
+        const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement('script');
+        script.src = 'https://www.tiktok.com/embed.js';
+        script.async = true;
+        document.body.appendChild(script);
+      }, 300); // Adjust duration to match CSS fade-out
+    } else {
+      // First time: load immediately
+      const url = videoUrls[index];
+      const embed = createTikTokEmbed(url);
+      if (embed) {
+        embed.style.opacity = 0;
+        embed.classList.add('carousel-item', 'active');
+        container.appendChild(embed);
+        setTimeout(() => embed.style.opacity = 1, 50);
+
+        const script = document.createElement('script');
+        script.src = 'https://www.tiktok.com/embed.js';
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    }
   }
+
 
 
   function nextSlide() {
