@@ -225,7 +225,11 @@
     slides = results
             .map(extractMedia)
             .filter(Boolean)
-            .map(media => `/images/uploads/${media}`);
+            .map(media => {
+              return media.startsWith('/')
+                      ? media        // ya tiene la ruta completa → úsala tal cual
+                      : `/images/uploads/${media}`;  // construye la ruta
+            });
 
     updateSlides();
   }
