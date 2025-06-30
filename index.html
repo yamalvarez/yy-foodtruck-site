@@ -192,67 +192,97 @@
     nav.classList.toggle('active');
   }
 
-  const videoUrls = [
-    'https://www.tiktok.com/@scout2015/video/6718335390845095173',
-    'https://www.tiktok.com/@tiktok/video/6807491984882765062',
-    'https://www.tiktok.com/@yyfoodtruck/video/7481750916065004842'
-  ];
-
   let currentIndex = 0;
+  let slides = [];
 
-  function createTikTokEmbed(url) {
-    const match = url.match(/video\/(\d+)/);
-    if (!match) return null;
-    const videoId = match[1];
+  async function loadGallery() {
+    const repoOwner = 'yamalvarez';
+    const repoName = 'yy-foodtruck-site';
+    const folderPath = 'content/gallery';
+    const branch = 'main';
+    const apiURL = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?ref=${branch}`;
 
-    const block = document.createElement('blockquote');
-    block.className = 'tiktok-embed carousel-slide';
-    block.setAttribute('cite', url);
-    block.setAttribute('data-video-id', videoId);
-    block.style = 'max-width: 325px; min-width: 200px;';
-    block.innerHTML = '<section>Loading…</section>';
-    return block;
+    const res = await fetch(apiURL);
+    if (!res.ok) {
+      console.error('❌ Failed to fetch gallery list:', res.statusText);
+      return;
+    }
+    const files = await res.json();
+    const markdownFiles = files.filter(f => f.name.endsWith('.md'));
+
+    const fetchMarkdown = async (fileUrl) => {
+      const res = await fetch(fileUrl);
+      return res.ok ? res.text() : '';
+    };
+
+    const extractMedia = (markdown) => {
+      const match = markdown.match(/media:\s*(.+)/);
+      return match ? match[1].trim().replace(/^["']|["']$/g, '') : null;
+    };
+
+    const results = await Promise.all(markdownFiles.map(f => fetchMarkdown(f.download_url)));
+
+    slides = results
+            .map(extractMedia)
+            .filter(Boolean)
+            .map(media => `/images/uploads/${media}`);
+
+    updateSlides();
+  }
+
+  function createSlideElement(src) {
+    const ext = src.split('.').pop().toLowerCase();
+    let el;
+    if (['mp4', 'webm'].includes(ext)) {
+      el = document.createElement('video');
+      el.src = src;
+      el.controls = true;
+    } else {
+      el = document.createElement('img');
+      el.src = src;
+    }
+    el.style = 'width: 100%; height: 100%; object-fit: cover; border-radius: 20px;';
+    return el;
   }
 
   function updateSlides() {
     const container = document.getElementById('carouselContainer');
     container.innerHTML = '';
 
-    const prevIdx = (currentIndex - 1 + videoUrls.length) % videoUrls.length;
-    const nextIdx = (currentIndex + 1) % videoUrls.length;
-
-    const prevEmbed = createTikTokEmbed(videoUrls[prevIdx]);
-    const activeEmbed = createTikTokEmbed(videoUrls[currentIndex]);
-    const nextEmbed = createTikTokEmbed(videoUrls[nextIdx]);
-
-    if (prevEmbed) container.appendChild(prevEmbed);
-    if (activeEmbed) {
-      activeEmbed.classList.add('active');
-      container.appendChild(activeEmbed);
+    if (slides.length === 0) {
+      const placeholder = document.createElement('div');
+      placeholder.textContent = 'No gallery items found.';
+      placeholder.style = 'color: white; font-size: 1.2rem;';
+      container.appendChild(placeholder);
+      return;
     }
-    if (nextEmbed) container.appendChild(nextEmbed);
 
-    const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
-    if (oldScript) oldScript.remove();
+    const prevIdx = (currentIndex - 1 + slides.length) % slides.length;
+    const nextIdx = (currentIndex + 1) % slides.length;
 
-    const script = document.createElement('script');
-    script.src = 'https://www.tiktok.com/embed.js';
-    script.async = true;
-    document.body.appendChild(script);
+    const prevEl = createSlideElement(slides[prevIdx]);
+    const activeEl = createSlideElement(slides[currentIndex]);
+    const nextEl = createSlideElement(slides[nextIdx]);
+
+    container.appendChild(prevEl);
+    activeEl.classList.add('active');
+    container.appendChild(activeEl);
+    container.appendChild(nextEl);
   }
 
   function nextSlide() {
-    currentIndex = (currentIndex + 1) % videoUrls.length;
+    currentIndex = (currentIndex + 1) % slides.length;
     updateSlides();
   }
 
   function prevSlide() {
-    currentIndex = (currentIndex - 1 + videoUrls.length) % videoUrls.length;
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     updateSlides();
   }
 
-  document.addEventListener("DOMContentLoaded", updateSlides);
+  document.addEventListener("DOMContentLoaded", loadGallery);
 </script>
+
 
 </body>
 </html>
