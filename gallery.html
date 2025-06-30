@@ -64,6 +64,11 @@
 </head>
 
 <body>
+<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:1000;">
+  <span style="position:absolute; top:20px; right:40px; font-size:2rem; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
+  <div id="lightboxContent" style="max-width:90%; max-height:90%;"></div>
+</div>
+
 <header>
   <div class="logo">
     <img src="images/logo.png" alt="Y&Y Logo"/>
@@ -133,7 +138,9 @@
         el.src = media;
       }
       el.className = 'gallery-item';
+      el.addEventListener('click', () => openLightbox(el));
       galleryContainer.appendChild(el);
+
     });
 
     // Load TikTok videos
@@ -156,6 +163,17 @@
     script.src = 'https://www.tiktok.com/embed.js';
     script.async = true;
     document.body.appendChild(script);
+  }
+  function openLightbox(contentElement) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.getElementById('lightboxContent');
+    lightboxContent.innerHTML = ''; // limpia
+    lightboxContent.appendChild(contentElement.cloneNode(true)); // clona el contenido
+    lightbox.style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
   }
 
   document.addEventListener("DOMContentLoaded", loadGallery);
