@@ -1,16 +1,18 @@
 backend:
   name: git-gateway
-  branch: main  # adjust if your branch is different
+  branch: main
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "images/uploads"      # Folder in your repo to store media
+public_folder: "/images/uploads"    # Public path for images/videos
 
 collections:
   - name: "gallery"
-    label: "Gallery"
-    folder: "content/gallery"
+    label: "Gallery Items"
+    label_singular: "Gallery Item"
+    folder: "content/gallery"       # Each item will create a markdown file here
     create: true
-    slug: "{{slug}}"
+    slug: "{{slug}}"                # Use the title as the filename
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "TikTok Video URL", name: "video", widget: "string" }
+      - { label: "Image or Video", name: "media", widget: "file", allow_multiple: false, required: true }
+      - { label: "Description", name: "description", widget: "text", required: false }
