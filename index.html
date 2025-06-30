@@ -171,6 +171,36 @@
     }
     .carousel-arrow.left { left: 10px; transform: translateY(-50%); }
     .carousel-arrow.right { right: 10px; transform: translateY(-50%); }
+    .modal {
+      display: none; /* hidden by default */
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8); /* black background with opacity */
+    }
+
+    .modal-content {
+      background-color: #111;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .close-button {
+      color: #f1c40f;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 
@@ -197,36 +227,8 @@
     <div class="text-section">
       <h1>WE BUILD YOUR FOOD TRUCK FROM SCRATCH</h1>
       <p>We design and build custom food trucks fully equipped to your needs.</p>
-      <a href="#estimate" class="cta-button">REQUEST ESTIMATE</a>
+      <button class="cta-button" onclick="openModal()">REQUEST ESTIMATE</button>
     </div>
-    <section class="contact-form-section" style="margin-top: 50px;">
-      <h2 style="color: #f1c40f;">Request an Estimate</h2>
-      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
-        <!-- Hidden field for Netlify bots -->
-        <input type="hidden" name="form-name" value="contact">
-        <p hidden>
-          <label>Don’t fill this out: <input name="bot-field"></label>
-        </p>
-
-        <label>
-          Name:
-          <input type="text" name="name" required style="width: 100%; padding: 8px;">
-        </label>
-
-        <label>
-          Email:
-          <input type="email" name="email" required style="width: 100%; padding: 8px;">
-        </label>
-
-        <label>
-          Message:
-          <textarea name="message" required rows="5" style="width: 100%; padding: 8px;"></textarea>
-        </label>
-
-        <button type="submit" class="cta-button" style="align-self: flex-start;">Send Request</button>
-      </form>
-    </section>
-
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="carousel">
         <button class="carousel-arrow left" onclick="prevSlide()">&#10094;</button>
@@ -240,6 +242,35 @@
       </div>
     </div>
   </section>
+</div>
+<div id="estimateModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" onclick="closeModal()">&times;</span>
+    <h2 style="color: #f1c40f;">Request an Estimate</h2>
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden>
+        <label>Don’t fill this out: <input name="bot-field"></label>
+      </p>
+
+      <label>
+        Name:
+        <input type="text" name="name" required style="width: 100%; padding: 8px;">
+      </label>
+
+      <label>
+        Email:
+        <input type="email" name="email" required style="width: 100%; padding: 8px;">
+      </label>
+
+      <label>
+        Message:
+        <textarea name="message" required rows="5" style="width: 100%; padding: 8px;"></textarea>
+      </label>
+
+      <button type="submit" class="cta-button" style="align-self: flex-start;">Send Request</button>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -341,6 +372,23 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadGallery);
+</script>
+<script>
+  function openModal() {
+    document.getElementById("estimateModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("estimateModal").style.display = "none";
+  }
+
+  // Close modal if clicking outside of it
+  window.onclick = function(event) {
+    const modal = document.getElementById("estimateModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
 </script>
 
 
