@@ -1,8 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Charset & Viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Basics -->
+  <meta name="description" content="We build custom food trucks from scratch. Get a free estimate and see our portfolio.">
+  <meta name="keywords" content="food trucks, custom trucks, mobile kitchen, food truck builder,food truck repairs, Florida">
+  <meta name="author" content="Y&Y Window Services Corp">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Y&Y Window Services Corp - Custom Food Trucks">
+  <meta property="og:description" content="Expert food truck builders. Design and build your custom food truck today.">
+  <meta property="og:image" content="https://yourdomain.com/images/logo.png"> <!-- replace with your actual logo URL -->
+  <meta property="og:url" content="https://yourdomain.com"> <!-- replace with your domain -->
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Y&Y Window Services Corp - Custom Food Trucks">
+  <meta name="twitter:description" content="Expert food truck builders. Design and build your custom food truck today.">
+  <meta name="twitter:image" content="https://yourdomain.com/images/logo.png"> <!-- replace with your actual logo URL -->
+
+  <!-- Canonical (optional, but recommended if you have a domain) -->
+  <link rel="canonical" href="https://yourdomain.com"> <!-- replace with your domain -->
+
   <title>Y&Y Window Services Corp</title>
 
   <!-- ✅ Google Fonts: Cinzel -->
@@ -175,6 +199,33 @@
       <p>We design and build custom food trucks fully equipped to your needs.</p>
       <a href="#estimate" class="cta-button">REQUEST ESTIMATE</a>
     </div>
+    <section class="contact-form-section" style="margin-top: 50px;">
+      <h2 style="color: #f1c40f;">Request an Estimate</h2>
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
+        <!-- Hidden field for Netlify bots -->
+        <input type="hidden" name="form-name" value="contact">
+        <p hidden>
+          <label>Don’t fill this out: <input name="bot-field"></label>
+        </p>
+
+        <label>
+          Name:
+          <input type="text" name="name" required style="width: 100%; padding: 8px;">
+        </label>
+
+        <label>
+          Email:
+          <input type="email" name="email" required style="width: 100%; padding: 8px;">
+        </label>
+
+        <label>
+          Message:
+          <textarea name="message" required rows="5" style="width: 100%; padding: 8px;"></textarea>
+        </label>
+
+        <button type="submit" class="cta-button" style="align-self: flex-start;">Send Request</button>
+      </form>
+    </section>
 
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="carousel">
