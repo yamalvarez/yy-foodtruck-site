@@ -244,34 +244,47 @@
   </section>
 </div>
 <div id="estimateModal" class="modal">
-  <div class="modal-content">
-    <span class="close-button" onclick="closeModal()">&times;</span>
-    <h2 style="color: #f1c40f;">Request an Estimate</h2>
-    <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
+    <div class="modal-content" style="background: #000; color: #fff; border-radius: 12px; padding: 30px; max-width: 500px; margin: auto;">
+    <span class="close-button" onclick="closeModal()" style="color: #f1c40f; font-size: 2rem; cursor: pointer; float: right;">&times;</span>
+      <img src="images/food-truck.png" alt="Food Truck Plan" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+    <h2 style="font-family: 'Cinzel', serif; color: #f1c40f; margin-bottom: 20px;">Request an Estimate</h2>
+
+    <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 20px;">
       <input type="hidden" name="form-name" value="contact">
       <p hidden>
         <label>Don’t fill this out: <input name="bot-field"></label>
       </p>
 
-      <label>
+      <label style="font-weight: bold;">
         Name:
-        <input type="text" name="name" required style="width: 100%; padding: 8px;">
+        <input type="text" name="name" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
       </label>
 
-      <label>
+      <label style="font-weight: bold;">
         Email:
-        <input type="email" name="email" required style="width: 100%; padding: 8px;">
+        <input type="email" name="email" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
       </label>
 
-      <label>
-        Message:
-        <textarea name="message" required rows="5" style="width: 100%; padding: 8px;"></textarea>
+      <label style="font-weight: bold;">
+        Select Truck Size:
+        <select name="truck-size" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
+          <option value="">-- Select --</option>
+          <option value="14ft">14’ Model</option>
+          <option value="16ft">16’ Model</option>
+          <option value="18ft">18’ Model</option>
+        </select>
       </label>
 
-      <button type="submit" class="cta-button" style="align-self: flex-start;">Send Request</button>
+      <label style="font-weight: bold;">
+        Additional Details:
+        <textarea name="message" required rows="5" style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;"></textarea>
+      </label>
+
+      <button type="submit" class="cta-button" style="align-self: flex-start; background-color: #f1c40f; color: #000; padding: 12px 24px; border-radius: 8px; font-weight: bold;">Send Request</button>
     </form>
   </div>
 </div>
+
 
 <script>
   function toggleMenu() {
