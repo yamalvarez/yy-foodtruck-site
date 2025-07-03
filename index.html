@@ -39,7 +39,7 @@
       font-family: Arial, sans-serif;
       background: #000;
       color: #fff;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     .container {
       display: flex;
@@ -84,6 +84,12 @@
       cursor: pointer;
       color: #fff;
     }
+    @media (max-width: 768px) {
+      .carousel {
+        transform: none;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -139,7 +145,7 @@
     }
     .carousel {
       position: relative;
-      width: 450px;
+      width: 100%;
       height: 450px;
       display: flex;
       justify-content: center;
