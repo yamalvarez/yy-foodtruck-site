@@ -246,7 +246,7 @@
 <div id="estimateModal" class="modal">
     <div class="modal-content" style="background: #000; color: #fff; border-radius: 12px; padding: 30px; max-width: 500px; margin: auto;">
     <span class="close-button" onclick="closeModal()" style="color: #f1c40f; font-size: 2rem; cursor: pointer; float: right;">&times;</span>
-      <img src="images/food-truck.png" alt="Food Truck Plan" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+      <img id="truckPlanPreview" src="images/food-truck-18.jpeg" alt="Food Truck Plan Preview" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
     <h2 style="font-family: 'Cinzel', serif; color: #f1c40f; margin-bottom: 20px;">Request an Estimate</h2>
 
     <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 20px;">
@@ -402,6 +402,34 @@
       modal.style.display = "none";
     }
   }
+  // ✅ Dynamically update plan preview when truck size changes
+  document.addEventListener("DOMContentLoaded", function () {
+    const truckSizeSelect = document.querySelector('select[name="truck-size"]');
+    const previewImage = document.getElementById('truckPlanPreview');
+
+    if (truckSizeSelect && previewImage) {
+      truckSizeSelect.addEventListener('change', function () {
+        const selected = truckSizeSelect.value;
+
+        let imagePath;
+        switch (selected) {
+          case '14ft':
+            imagePath = 'images/food-truck-18.jpeg';
+            break;
+          case '16ft':
+            imagePath = 'images/food-truck-18.jpeg';
+            break;
+          case '18ft':
+            imagePath = 'images/food-truck-18.jpeg';
+            break;
+          default:
+            imagePath = 'images/food-truck-18.jpeg'; // fallback
+        }
+
+        previewImage.src = imagePath;
+      });
+    }
+  });
 </script>
 
 
