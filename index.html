@@ -368,18 +368,10 @@
       return;
     }
 
-    const prevIdx = (currentIndex - 1 + slides.length) % slides.length;
-    const nextIdx = (currentIndex + 1) % slides.length;
-
-    const prevEl = createSlideElement(slides[prevIdx]);
     const activeEl = createSlideElement(slides[currentIndex]);
-    const nextEl = createSlideElement(slides[nextIdx]);
-
-    container.appendChild(prevEl);
-    activeEl.classList.add('active');
     container.appendChild(activeEl);
-    container.appendChild(nextEl);
   }
+
 
   function nextSlide() {
     currentIndex = (currentIndex + 1) % slides.length;
