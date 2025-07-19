@@ -435,12 +435,13 @@
                       ? media
                       : `/images/uploads/${media}`;
             });
+
     slides.forEach(src => {
       if (src.endsWith('.mp4') || src.endsWith('.webm')) {
         const v = document.createElement('video');
         v.src = src;
         v.preload = 'auto';
-        v.muted = true;
+        v.muted = false;
         v.style.display = 'none'; // no visible, pero fuerza precarga
         document.body.appendChild(v);
       }
