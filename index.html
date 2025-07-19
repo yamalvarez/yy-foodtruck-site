@@ -435,8 +435,6 @@
                       ? media
                       : `/images/uploads/${media}`;
             });
-
-    updateSlides();
     slides.forEach(src => {
       if (src.endsWith('.mp4') || src.endsWith('.webm')) {
         const v = document.createElement('video');
@@ -447,6 +445,7 @@
         document.body.appendChild(v);
       }
     });
+    updateSlides();
   }
 
   function createSlideElement(src) {
