@@ -420,55 +420,44 @@
       return res.ok ? res.text() : '';
     };
 
-    const extractMedia = (markdown) => {
-      const match = markdown.match(/media:\s*(.+)/);
-      return match ? match[1].trim().replace(/^["']|["']$/g, '') : null;
+    const extractMediaAndPoster = (markdown) => {
+      const mediaMatch = markdown.match(/media:\s*(.+)/);
+      const posterMatch = markdown.match(/poster:\s*(.+)/);
+      const media = mediaMatch ? mediaMatch[1].trim().replace(/^['"]|['"]$/g, '') : null;
+      const poster = posterMatch ? posterMatch[1].trim().replace(/^['"]|['"]$/g, '') : null;
+      return { media, poster };
     };
 
     const results = await Promise.all(markdownFiles.map(f => fetchMarkdown(f.download_url)));
 
     slides = results
-            .map(extractMedia)
-            .filter(Boolean)
-            .map(media => {
-              return media.startsWith('/')
-                      ? media
-                      : `/images/uploads/${media}`;
-            });
+            .map(extractMediaAndPoster)
+            .filter(item => item.media)
+            .map(({ media, poster }) => ({
+              media: media.startsWith('/') ? media : `/images/uploads/${media}`,
+              poster: poster ? (poster.startsWith('/') ? poster : `/images/uploads/${poster}`) : null
+            }));
 
-    slides.forEach(src => {
-      if (src.endsWith('.mp4') || src.endsWith('.webm')) {
-        const v = document.createElement('video');
-        v.src = src;
-        v.preload = 'auto';
-        v.muted = false;
-        v.style.display = 'none'; // no visible, pero fuerza precarga
-        document.body.appendChild(v);
-      }
-    });
     updateSlides();
   }
 
-  function createSlideElement(src) {
-    const ext = src.split('.').pop().toLowerCase();
+  function createSlideElement({ media, poster }) {
+    const ext = media.split('.').pop().toLowerCase();
     let el;
-    if (['mp4', 'webm'].includes(ext)) {
-      el = document.createElement('video');
-      el.src = src;
+    if (["mp4", "webm"].includes(ext)) {
+      el = document.createElement("video");
+      el.src = media;
       el.controls = true;
-      el.preload = "auto";
-      el.poster = `${src}#t=0.1`;
-      el.muted = false;
-      el.autoplay = false;
+      el.playsInline = true;
+      el.preload = "metadata";
+      if (poster) el.poster = poster;
     } else {
-      el = document.createElement('img');
-      el.src = src;
+      el = document.createElement("img");
+      el.src = media;
     }
-    el.style = 'width: 100%; height: 100%; object-fit: cover; border-radius: 20px;';
+    el.style = "width: 100%; height: 100%; object-fit: cover; border-radius: 20px;";
     return el;
   }
-
-
   function updateSlides() {
     const container = document.getElementById('carouselContainer');
     container.innerHTML = '';
