@@ -238,7 +238,7 @@
         margin: 0 auto;
       }
       .carousel {
-        height: 75vw; /* Esto está bien para mantener proporción relativa */
+        height: 80vw; /* Esto está bien para mantener proporción relativa */
       }
 
       #carouselContainer {
@@ -251,6 +251,13 @@
         width: 100%;
         object-fit: cover;
         border-radius: 20px;
+      }
+      #carouselContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%; /* ✅ Esto hace que se expanda completamente en móvil */
       }
 
     }
@@ -303,7 +310,7 @@
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="carousel">
         <button class="carousel-arrow left" onclick="prevSlide()">&#10094;</button>
-        <div id="carouselContainer" style="display: flex; align-items: center;">
+        <div id="carouselContainer">
           <!-- Videos will be injected here -->
         </div>
         <button class="carousel-arrow right" onclick="nextSlide()">&#10095;</button>
