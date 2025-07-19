@@ -565,5 +565,34 @@
     </a>
   </p>
 </footer>
+<script>
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function handleGesture() {
+    const swipeThreshold = 50; // mínimo en px para considerar swipe
+
+    if (touchEndX < touchStartX - swipeThreshold) {
+      nextSlide(); // deslizó a la izquierda
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      prevSlide(); // deslizó a la derecha
+    }
+  }
+
+  const carousel = document.querySelector('.carousel');
+
+  if (carousel) {
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    });
+  }
+</script>
+
 </body>
 </html>
