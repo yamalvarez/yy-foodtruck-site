@@ -1,4 +1,4 @@
 ---
 title: image1
-media: /images/uploads/784-900x900.jpg
+media: /images/uploads/screenshot-2025-06-24-201344.png
 ---
