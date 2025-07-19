@@ -423,41 +423,42 @@
     const extractMediaAndPoster = (markdown) => {
       const mediaMatch = markdown.match(/media:\s*(.+)/);
       const posterMatch = markdown.match(/poster:\s*(.+)/);
-      const media = mediaMatch ? mediaMatch[1].trim().replace(/^['"]|['"]$/g, '') : null;
-      const poster = posterMatch ? posterMatch[1].trim().replace(/^['"]|['"]$/g, '') : null;
-      return { media, poster };
-    };
+      const media = mediaMatch ? mediaMatch[1].trim().replace(/^["']|["']$/g, '') : null;
+      const poster = posterMatch ? posterMatch[1].trim().replace(/^["']|["']$/g, '') : null;
 
-    const results = await Promise.all(markdownFiles.map(f => fetchMarkdown(f.download_url)));
+      return media ? {
+        media: media.startsWith("/") ? media : `/images/uploads/${media}`,
+        poster: poster ? (poster.startsWith("/") ? poster : `/images/uploads/${poster}`) : null
+      } : null;
+    };
 
     slides = results
             .map(extractMediaAndPoster)
-            .filter(item => item.media)
-            .map(({ media, poster }) => ({
-              media: media.startsWith('/') ? media : `/images/uploads/${media}`,
-              poster: poster ? (poster.startsWith('/') ? poster : `/images/uploads/${poster}`) : null
-            }));
+            .filter(Boolean);
 
     updateSlides();
   }
 
-  function createSlideElement({ media, poster }) {
-    const ext = media.split('.').pop().toLowerCase();
+  function createSlideElement(src, poster = null) {
+    const ext = src.split('.').pop().toLowerCase();
     let el;
+
     if (["mp4", "webm"].includes(ext)) {
       el = document.createElement("video");
-      el.src = media;
+      el.src = src;
       el.controls = true;
       el.playsInline = true;
       el.preload = "metadata";
-      if (poster) el.poster = poster;
+      el.poster = poster || "/images/uploads/default-thumbnail.npg"; // 👈 Aquí usamos uno por defecto
     } else {
       el = document.createElement("img");
-      el.src = media;
+      el.src = src;
     }
+
     el.style = "width: 100%; height: 100%; object-fit: cover; border-radius: 20px;";
     return el;
   }
+
   function updateSlides() {
     const container = document.getElementById('carouselContainer');
     container.innerHTML = '';
@@ -477,7 +478,7 @@
       return;
     }
 
-    const activeEl = createSlideElement(slides[currentIndex]);
+    const activeEl = createSlideElement(slides[currentIndex].media, slides[currentIndex].poster);
     container.appendChild(activeEl);
   }
 
