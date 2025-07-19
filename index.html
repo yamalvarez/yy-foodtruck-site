@@ -446,13 +446,15 @@
       el = document.createElement('video');
       el.src = src;
       el.controls = true;
+      el.preload = "auto"; // ✅ vuelve a precargar el video completo y muestra el primer frame
     } else {
       el = document.createElement('img');
       el.src = src;
     }
-    el.className = 'carousel-slide';
+    el.style = 'width: 100%; height: 100%; object-fit: cover; border-radius: 20px;';
     return el;
   }
+
 
   function updateSlides() {
     const container = document.getElementById('carouselContainer');
