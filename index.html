@@ -437,6 +437,16 @@
             });
 
     updateSlides();
+    slides.forEach(src => {
+      if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+        const v = document.createElement('video');
+        v.src = src;
+        v.preload = 'auto';
+        v.muted = true;
+        v.style.display = 'none'; // no visible, pero fuerza precarga
+        document.body.appendChild(v);
+      }
+    });
   }
 
   function createSlideElement(src) {
@@ -446,18 +456,13 @@
       el = document.createElement('video');
       el.src = src;
       el.controls = true;
-      el.preload = "auto";
-      el.muted = true; // importante en móviles si quisieras autoplay después
-
-      // Forzar que cargue el primer frame
-      el.addEventListener('loadeddata', () => {
-        try {
-          el.currentTime = 0.1;
-        } catch (err) {
-          console.warn('No se pudo adelantar al primer frame:', err);
-        }
-      });
+      el.preload = "auto"; // ✅ vuelve a precargar el video completo y muestra el primer frame
+    } else {
+      el = document.createElement('img');
+      el.src = src;
     }
+    el.style = 'width: 100%; height: 100%; object-fit: cover; border-radius: 20px;';
+    return el;
   }
 
 
