@@ -409,34 +409,7 @@
   }
   // ✅ Dynamically update plan preview when truck size changes
   document.addEventListener("DOMContentLoaded", function () {
-    const truckSizeSelect = document.querySelector('select[name="truck-size"]');
-    const previewImage = document.getElementById('truckPlanPreview');
-
-    if (truckSizeSelect && previewImage) {
-      truckSizeSelect.addEventListener('change', function () {
-        const selected = truckSizeSelect.value;
-
-        let imagePath;
-        switch (selected) {
-          case '14ft':
-            imagePath = 'images/food_truck_14.jpg';
-            break;
-          case '16ft':
-            imagePath = 'images/food_truck_14.jpg';
-            break;
-          case '18ft':
-            imagePath = 'images/food-truck-18.jpeg';
-            break;
-          default:
-            imagePath = 'images/food-truck-18.jpeg'; // fallback
-        }
-
-        previewImage.src = imagePath;
-      });
-    }
-  });
-    // Validación de número telefónico: solo dígitos, entre 10 y 15
-  document.addEventListener("DOMContentLoaded", function () {
+    // 🎯 1. VALIDACIÓN TELÉFONO
     const form = document.querySelector('form[name="contact"]');
     const phoneInput = document.getElementById('phone');
 
@@ -452,6 +425,32 @@
         }
       });
     }
+
+    // 🎯 2. ACTUALIZAR IMAGEN SEGÚN TAMAÑO
+    const truckSizeSelect = document.querySelector('select[name="truck-size"]');
+    const previewImage = document.getElementById('truckPlanPreview');
+
+    if (truckSizeSelect && previewImage) {
+      truckSizeSelect.addEventListener('change', function () {
+        const selected = truckSizeSelect.value;
+        let imagePath;
+        switch (selected) {
+          case '14ft':
+          case '16ft':
+            imagePath = 'images/food_truck_14.jpg';
+            break;
+          case '18ft':
+            imagePath = 'images/food-truck-18.jpeg';
+            break;
+          default:
+            imagePath = 'images/food-truck-18.jpeg';
+        }
+        previewImage.src = imagePath;
+      });
+    }
+
+    // 🎯 3. CARGAR GALERÍA
+    loadGallery();
   });
 </script>
 
