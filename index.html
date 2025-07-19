@@ -460,6 +460,13 @@
       placeholder.textContent = 'No gallery items found.';
       placeholder.style = 'color: white; font-size: 1.2rem;';
       container.appendChild(placeholder);
+      setTimeout(() => {
+        const carousel = document.querySelector('.carousel');
+        if (carousel) {
+          carousel.style.width = '100%'; // forzar recalculo
+          carousel.style.height = '75vw';
+        }
+      }, 50);
       return;
     }
 
