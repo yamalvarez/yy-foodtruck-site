@@ -271,7 +271,13 @@
         Email:
         <input type="email" name="email" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
       </label>
-
+      <label style="font-weight: bold;">
+        Phone Number:
+        <input type="tel" name="phone" required
+               pattern="[0-9+\-() ]{7,20}"
+               placeholder="e.g. (123) 456-7890"
+               style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
+      </label>
       <label style="font-weight: bold;">
         Select Truck Size:
         <select name="truck-size" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
