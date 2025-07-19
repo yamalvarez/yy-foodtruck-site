@@ -446,13 +446,18 @@
       el = document.createElement('video');
       el.src = src;
       el.controls = true;
-      el.preload = "auto"; // ✅ vuelve a precargar el video completo y muestra el primer frame
-    } else {
-      el = document.createElement('img');
-      el.src = src;
+      el.preload = "auto";
+      el.muted = true; // importante en móviles si quisieras autoplay después
+
+      // Forzar que cargue el primer frame
+      el.addEventListener('loadeddata', () => {
+        try {
+          el.currentTime = 0.1;
+        } catch (err) {
+          console.warn('No se pudo adelantar al primer frame:', err);
+        }
+      });
     }
-    el.style = 'width: 100%; height: 100%; object-fit: cover; border-radius: 20px;';
-    return el;
   }
 
 
