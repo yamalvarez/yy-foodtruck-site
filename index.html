@@ -273,8 +273,7 @@
       </label>
       <label style="font-weight: bold;">
         Phone Number:
-        <input type="text" name="phone" required
-               pattern="^[0-9]{10,15}$"
+        <input type="text" id="phone" name="phone" required
                placeholder="e.g. 3051234567"
                title="Please enter a valid phone number (10–15 digits)"
                style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
@@ -435,6 +434,19 @@
         previewImage.src = imagePath;
       });
     }
+  });
+    // Validación de número telefónico: solo dígitos, entre 10 y 15
+    document.querySelector('form[name="contact"]').addEventListener('submit', function (e) {
+    const phoneInput = document.getElementById('phone');
+    const phoneValue = phoneInput.value.trim();
+
+    const isValidPhone = /^[0-9]{10,15}$/.test(phoneValue);
+
+    if (!isValidPhone) {
+    e.preventDefault();
+    alert("Please enter a valid phone number with 10 to 15 digits.");
+    phoneInput.focus();
+  }
   });
 </script>
 
