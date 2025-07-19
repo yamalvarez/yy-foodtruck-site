@@ -109,6 +109,40 @@
       .menu-toggle {
         display: block;
       }
+      #estimateModal {
+        overflow-x: hidden;
+      }
+
+      .modal-content {
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+    }
+    #estimateModal {
+      overflow-x: hidden;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .modal-content form input,
+    .modal-content form textarea,
+    .modal-content form select {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* 🔒 Asegura que todo el sitio no tenga scroll horizontal */
+    body, html {
+      overflow-x: hidden;
     }
     .main-content {
       display: flex;
@@ -564,7 +598,7 @@
             imagePath = 'images/food-truck-18.jpeg';
             break;
           default:
-            imagePath = 'images/food-truck-18.jpeg';
+            imagePath = 'images/food_truck_16.ppg';
         }
         previewImage.src = imagePath;
       });
