@@ -407,15 +407,12 @@
     const branch = 'main';
     const apiURL = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?ref=${branch}`;
 
-    const results = await Promise.all(markdownFiles.map(f => fetchMarkdown(f.download_url)));
-    slides = results
-            .map(extractMediaAndPoster)
-            .filter(Boolean);
-
+    const res = await fetch(apiURL);
     if (!res.ok) {
       console.error('❌ Failed to fetch gallery list:', res.statusText);
       return;
     }
+
     const files = await res.json();
     const markdownFiles = files.filter(f => f.name.endsWith('.md'));
 
@@ -436,12 +433,14 @@
       } : null;
     };
 
+    const results = await Promise.all(markdownFiles.map(f => fetchMarkdown(f.download_url)));
     slides = results
             .map(extractMediaAndPoster)
             .filter(Boolean);
 
     updateSlides();
   }
+
 
   function createSlideElement(src, poster = null) {
     const ext = src.split('.').pop().toLowerCase();
