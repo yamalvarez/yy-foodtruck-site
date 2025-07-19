@@ -436,17 +436,22 @@
     }
   });
     // Validación de número telefónico: solo dígitos, entre 10 y 15
-    document.querySelector('form[name="contact"]').addEventListener('submit', function (e) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector('form[name="contact"]');
     const phoneInput = document.getElementById('phone');
-    const phoneValue = phoneInput.value.trim();
 
-    const isValidPhone = /^[0-9]{10,15}$/.test(phoneValue);
+    if (form && phoneInput) {
+      form.addEventListener('submit', function (e) {
+        const phoneValue = phoneInput.value.trim();
+        const isValidPhone = /^[0-9]{10,15}$/.test(phoneValue);
 
-    if (!isValidPhone) {
-    e.preventDefault();
-    alert("Please enter a valid phone number with 10 to 15 digits.");
-    phoneInput.focus();
-  }
+        if (!isValidPhone) {
+          e.preventDefault();
+          alert("Please enter a valid phone number with 10 to 15 digits.");
+          phoneInput.focus();
+        }
+      });
+    }
   });
 </script>
 
