@@ -237,46 +237,30 @@
         display: block;
         margin: 0 auto;
       }
-      .carousel {
-        height: 80vw; /* Esto está bien para mantener proporción relativa */
-      }
+      @media (max-width: 768px) {
+        .carousel {
+          width: 100vw; /* Use viewport width */
+          max-width: 100%;
+          height: 75vw;
+        }
 
-      #carouselContainer {
-        height: 100%; /* ✅ Asegura que herede la altura del carrusel */
-      }
+        #carouselContainer {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
-      .carousel img,
-      .carousel video {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 20px;
+        .carousel img,
+        .carousel video {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover;
+          border-radius: 20px;
+          display: block;
+        }
       }
-      .carousel {
-        width: 100%;
-        height: 75vw;
-        overflow: hidden;
-        position: relative;
-      }
-
-      #carouselContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
-      }
-
-      .carousel img,
-      .carousel video {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-        border-radius: 20px;
-        display: block;
-      }
-
-
     }
 
 
@@ -447,10 +431,11 @@
       el = document.createElement('img');
       el.src = src;
     }
-    el.style = 'width: 100%; height: 100%; object-fit: cover; border-radius: 20px;';
+    el.className = 'carousel-slide';
     return el;
   }
 
+  // Optional: force reflow after image loads
   function updateSlides() {
     const container = document.getElementById('carouselContainer');
     container.innerHTML = '';
@@ -460,15 +445,15 @@
       placeholder.textContent = 'No gallery items found.';
       placeholder.style = 'color: white; font-size: 1.2rem;';
       container.appendChild(placeholder);
-      setTimeout(() => {
-        const carousel = document.querySelector('.carousel');
-        if (carousel) {
-          carousel.style.width = '100%'; // forzar recalculo
-          carousel.style.height = '75vw';
-        }
-      }, 50);
       return;
     }
+
+    const activeEl = createSlideElement(slides[currentIndex]);
+    activeEl.onload = () => {
+      window.dispatchEvent(new Event('resize'));
+    };
+    container.appendChild(activeEl);
+  }
 
     const activeEl = createSlideElement(slides[currentIndex]);
     container.appendChild(activeEl);
