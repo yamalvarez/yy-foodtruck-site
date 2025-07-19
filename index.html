@@ -407,7 +407,11 @@
     const branch = 'main';
     const apiURL = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?ref=${branch}`;
 
-    const res = await fetch(apiURL);
+    const results = await Promise.all(markdownFiles.map(f => fetchMarkdown(f.download_url)));
+    slides = results
+            .map(extractMediaAndPoster)
+            .filter(Boolean);
+
     if (!res.ok) {
       console.error('❌ Failed to fetch gallery list:', res.statusText);
       return;
