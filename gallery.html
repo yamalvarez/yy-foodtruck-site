@@ -71,7 +71,12 @@
   </div>
   <a href="/" style="color: gold; text-decoration: none; font-weight: bold;">← Back to Home</a>
 </header>
-
+<div style="margin-top: 60px; text-align: center;">
+  <h2 style="color: #f1c40f; font-family: 'Cinzel', serif;">See More on TikTok</h2>
+  <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@yyfoodtruck" data-unique-id="yyfoodtruck" data-embed-type="creator" style="max-width: 100%; margin: 20px auto;">
+    <section> <a target="_blank" href="https://www.tiktok.com/@yyfoodtruck">Watch more on TikTok</a> </section>
+  </blockquote>
+</div>
 <main>
   <h1>Our Full Gallery</h1>
   <div id="galleryContainer" class="gallery-container">
@@ -134,19 +139,6 @@
       }
       el.className = 'gallery-item';
       galleryContainer.appendChild(el);
-    });
-
-    // Load TikTok videos
-    videoUrls.forEach(url => {
-      const match = url.match(/video\/(\d+)/);
-      if (match) {
-        const block = document.createElement('blockquote');
-        block.className = 'tiktok-embed';
-        block.setAttribute('cite', url);
-        block.setAttribute('data-video-id', match[1]);
-        block.innerHTML = '<section>Loading…</section>';
-        galleryContainer.appendChild(block);
-      }
     });
 
     const oldScript = document.querySelector('script[src*="tiktok.com/embed.js"]');
