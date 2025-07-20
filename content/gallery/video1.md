@@ -1,4 +1,4 @@
 ---
 title: video1
-media: /images/uploads/sample_640x360.mp4
+media: /images/uploads/video1.mp4
 ---
