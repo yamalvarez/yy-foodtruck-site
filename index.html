@@ -473,7 +473,7 @@
     // Check media existence
     const filtered = [];
     for (const item of items) {
-      try {
+     /* try {
         const check = await fetch(item.media, { method: 'HEAD' });
         if (check.ok) {
           filtered.push(item);
@@ -482,7 +482,8 @@
         }
       } catch (err) {
         console.warn(`⚠️ Error checking media: ${item.media}`, err);
-      }
+      }*/
+      filtered.push(item);
     }
 
     slides = filtered;
