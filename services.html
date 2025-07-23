@@ -92,40 +92,34 @@
         }
         .menu-toggle {
             display: none;
-            font-size: 1.8rem;
-            cursor: pointer;
+            font-size: 2rem;
             color: #f1c40f;
+            cursor: pointer;
         }
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
 
+        @media (max-width: 768px) {
             .nav-links {
                 display: none;
-                flex-direction: column;
-                background-color: #000;
                 position: absolute;
                 top: 80px;
-                right: 40px;
-                padding: 20px;
+                right: 20px;
+                background-color: #000;
                 border: 1px solid #f1c40f;
+                padding: 20px;
                 z-index: 999;
-            }
-
-            .nav-links a {
-                margin: 10px 0;
+                flex-direction: column;
             }
 
             .nav-links.show {
                 display: flex;
             }
-            header {
-                padding-left: 20px; /* margen izquierdo general */
-                padding-right: 20px;
-            }
+
             .menu-toggle {
-                margin-right: 20px; /* evita que el ícono se pegue al borde derecho */
+                display: block;
+            }
+
+            .nav-links a {
+                margin: 10px 0;
             }
         }
     </style>
