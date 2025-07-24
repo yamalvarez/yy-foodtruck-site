@@ -189,6 +189,12 @@
     const nav = document.getElementById('navLinks');
     nav.classList.toggle('active');
   }
+  document.querySelectorAll('#navLinks a').forEach(link => {
+    link.addEventListener('click', () => {
+      const nav = document.getElementById('navLinks');
+      nav.classList.remove('active');
+    });
+  });
   document.addEventListener("DOMContentLoaded", loadGallery);
 </script>
 
