@@ -94,6 +94,23 @@
       .menu-toggle {
         display: block;
       }
+      #estimateModal {
+        overflow-x: hidden;
+      }
+      #estimateModal {
+        overflow-x: hidden;
+      }
+      .modal {
+        display: none; /* hidden by default */
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8); /* black background with opacity */
+      }
     }
   </style>
 </head>
@@ -125,6 +142,54 @@
     <!-- Gallery items will be injected here -->
   </div>
 </main>
+<div id="estimateModal" class="modal">
+  <div class="modal-content" style="background: #000; color: #fff; border-radius: 12px; padding: 30px; max-width: 500px; margin: auto;">
+    <span class="close-button" onclick="closeModal()" style="color: #f1c40f; font-size: 2rem; cursor: pointer; float: right;">&times;</span>
+    <img id="truckPlanPreview" src="images/food-truck-18.jpeg" alt="Food Truck Plan Preview" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+    <h2 style="font-family: 'Cinzel', serif; color: #f1c40f; margin-bottom: 20px;">Request an Estimate</h2>
+
+    <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 20px;">
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden>
+        <label>Don’t fill this out: <input name="bot-field"></label>
+      </p>
+
+      <label style="font-weight: bold;">
+        Name:
+        <input type="text" name="name" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
+      </label>
+
+      <label style="font-weight: bold;">
+        Email:
+        <input type="email" name="email" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
+      </label>
+      <label style="font-weight: bold;">
+        Phone Number:
+        <input type="text" id="phone" name="phone" required
+               placeholder="e.g. 3051234567"
+               inputmode="numeric"
+               maxlength="10"
+               style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
+      </label>
+      <label style="font-weight: bold;">
+        Select Truck Size:
+        <select name="truck-size" required style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;">
+          <option value="">-- Select --</option>
+          <option value="14ft">14’ Model</option>
+          <option value="16ft">16’ Model</option>
+          <option value="18ft">18’ Model</option>
+        </select>
+      </label>
+
+      <label style="font-weight: bold;">
+        Additional Details:
+        <textarea name="message" required rows="5" style="width: 100%; padding: 12px; border-radius: 8px; border: none; margin-top: 5px;"></textarea>
+      </label>
+
+      <button type="submit" class="cta-button" style="align-self: flex-start; background-color: #f1c40f; color: #000; padding: 12px 24px; border-radius: 8px; font-weight: bold;">Send Request</button>
+    </form>
+  </div>
+</div>
 <footer id="contact" style="background-color: #111; padding: 50px; text-align: center;">
   <h2 style="color: #f1c40f; font-family: 'Cinzel', serif;">Contact Information</h2>
   <p style="margin: 10px 0;">📞 <a href="tel:+13059896611" style="color: #f1c40f;">+1-305-989-6611</a></p>
@@ -214,6 +279,63 @@
     });
   });
   document.addEventListener("DOMContentLoaded", loadGallery);
+  function openModal() {
+    document.getElementById("estimateModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("estimateModal").style.display = "none";
+  }
+
+  // Close modal if clicking outside of it
+  window.onclick = function(event) {
+    const modal = document.getElementById("estimateModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  }
+  // ✅ Dynamically update plan preview when truck size changes
+  document.addEventListener("DOMContentLoaded", function () {
+    // 🎯 1. VALIDACIÓN TELÉFONO
+    const form = document.querySelector('form[name="contact"]');
+    const phoneInput = document.getElementById('phone');
+
+    if (form && phoneInput) {
+      form.addEventListener('submit', function (e) {
+        const phoneValue = phoneInput.value.trim();
+        const isValidPhone = /^[0-9]{10,15}$/.test(phoneValue);
+
+        if (!isValidPhone) {
+          e.preventDefault();
+          alert("Please enter a valid phone number with 10 to 15 digits.");
+          phoneInput.focus();
+        }
+      });
+    }
+
+    // 🎯 2. ACTUALIZAR IMAGEN SEGÚN TAMAÑO
+    const truckSizeSelect = document.querySelector('select[name="truck-size"]');
+    const previewImage = document.getElementById('truckPlanPreview');
+
+    if (truckSizeSelect && previewImage) {
+      truckSizeSelect.addEventListener('change', function () {
+        const selected = truckSizeSelect.value;
+        let imagePath;
+        switch (selected) {
+          case '14ft':
+          case '16ft':
+            imagePath = 'images/food_truck_14.jpg';
+            break;
+          case '18ft':
+            imagePath = 'images/food-truck-18.jpeg';
+            break;
+          default:
+            imagePath = 'images/food_truck_16.ppg';
+        }
+        previewImage.src = imagePath;
+      });
+    }
+  });
 </script>
 
 </body>
