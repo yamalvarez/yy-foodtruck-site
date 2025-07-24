@@ -31,7 +31,7 @@
             gap: 15px;
         }
         .logo img {
-            height: 60px;
+            height: 80px;
         }
         .logo-title {
             font-family: 'Cinzel', serif;
@@ -223,6 +223,12 @@
         const nav = document.getElementById('navLinks');
         nav.classList.toggle('active');
     }
+    document.querySelectorAll('#navLinks a').forEach(link => {
+        link.addEventListener('click', () => {
+            const nav = document.getElementById('navLinks');
+            nav.classList.remove('active');
+        });
+    });
 </script>
 </body>
 </html>
