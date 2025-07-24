@@ -121,6 +121,12 @@
             .menu-toggle {
                 display: block;
             }
+            #estimateModal {
+                overflow-x: hidden;
+            }
+        }
+        #estimateModal {
+            overflow-x: hidden;
         }
         .modal {
             display: none; /* hidden by default */
@@ -290,19 +296,62 @@
         });
     });
     function openModal() {
-        document.getElementById("requestModal").style.display = "block";
+        document.getElementById("estimateModal").style.display = "block";
     }
 
     function closeModal() {
-        document.getElementById("requestModal").style.display = "none";
+        document.getElementById("estimateModal").style.display = "none";
     }
 
-    window.onclick = function (event) {
-        const modal = document.getElementById("requestModal");
+    // Close modal if clicking outside of it
+    window.onclick = function(event) {
+        const modal = document.getElementById("estimateModal");
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    };
+    }
+    // ✅ Dynamically update plan preview when truck size changes
+    document.addEventListener("DOMContentLoaded", function () {
+        // 🎯 1. VALIDACIÓN TELÉFONO
+        const form = document.querySelector('form[name="contact"]');
+        const phoneInput = document.getElementById('phone');
+
+        if (form && phoneInput) {
+            form.addEventListener('submit', function (e) {
+                const phoneValue = phoneInput.value.trim();
+                const isValidPhone = /^[0-9]{10,15}$/.test(phoneValue);
+
+                if (!isValidPhone) {
+                    e.preventDefault();
+                    alert("Please enter a valid phone number with 10 to 15 digits.");
+                    phoneInput.focus();
+                }
+            });
+        }
+
+        // 🎯 2. ACTUALIZAR IMAGEN SEGÚN TAMAÑO
+        const truckSizeSelect = document.querySelector('select[name="truck-size"]');
+        const previewImage = document.getElementById('truckPlanPreview');
+
+        if (truckSizeSelect && previewImage) {
+            truckSizeSelect.addEventListener('change', function () {
+                const selected = truckSizeSelect.value;
+                let imagePath;
+                switch (selected) {
+                    case '14ft':
+                    case '16ft':
+                        imagePath = 'images/food_truck_14.jpg';
+                        break;
+                    case '18ft':
+                        imagePath = 'images/food-truck-18.jpeg';
+                        break;
+                    default:
+                        imagePath = 'images/food_truck_16.ppg';
+                }
+                previewImage.src = imagePath;
+            });
+        }
+
 </script>
 </body>
 </html>
