@@ -83,11 +83,14 @@
       max-width: 100% !important;
     }
     .instagram-wrapper {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
+      width: 780px;
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      height: 500px; /* Limita la altura visual del embed */
+      position: relative;
     }
+
     .instagram-media {
       width: 780px !important;
       max-width: 100% !important;
@@ -185,8 +188,7 @@
     <section> <a target="_blank" href="https://www.tiktok.com/@yyfoodtruck">Watch more on TikTok</a> </section>
   </blockquote>
 </div>
-<div style="margin-top: 100px; text-align: center;">
-  <h2 style="color: #f1c40f; font-family: 'Cinzel', serif;">See More on Instagram</h2>
+<<div class="instagram-wrapper">
   <blockquote
           class="instagram-media"
           data-instgrm-permalink="https://www.instagram.com/reel/DMJMjHpOtF0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
