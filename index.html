@@ -156,12 +156,20 @@
     .carousel {
       position: relative;
       width: 100%;
-      height: 450px;
+      height: 450px; /* ✅ Asegura altura fija para evitar saltos */
+      max-height: 450px;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      border: none;
+      border-radius: 20px;
+    }
+    .carousel img,
+    .carousel video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 🔥 Esto asegura que el contenido rellene el espacio sin deformar el diseño */
+      border-radius: 20px;
     }
     .carousel-arrow {
       position: absolute;
@@ -173,12 +181,6 @@
       user-select: none;
       background: none;
       border: none;
-    }
-    .carousel .tiktok-embed {
-      width: 100%;
-      height: 100%;
-      max-width: none;
-      border-radius: 20px; /* para que el video copie el borde redondeado del carrusel */
     }
     .carousel iframe {
       width: 100%;
