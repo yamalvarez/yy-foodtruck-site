@@ -153,7 +153,9 @@
         min-height: 500px;
       }
     }
-
+    .nav-links {
+     margin-right: 40px;
+    }
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -169,8 +171,8 @@
       .nav-links a {
         margin: 15px 0; /* More space between links in mobile */
       }
-      .nav-links {
-        margin-right: 40px;
+      .nav-links.active {
+        display: flex;
       }
       .menu-toggle {
         display: block;
