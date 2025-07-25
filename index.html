@@ -160,20 +160,23 @@
     .carousel {
       position: relative;
       width: 100%;
-      height: 450px; /* ✅ Asegura altura fija para evitar saltos */
-      max-height: 450px;
+      max-width: 780px;
+      height: 450px; /* fijo */
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       border-radius: 20px;
+      margin: 0 auto;
+      background-color: #000;
     }
     .carousel img,
     .carousel video {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 🔥 Esto asegura que el contenido rellene el espacio sin deformar el diseño */
+      object-fit: cover; /* recorta para que no se deforme */
       border-radius: 20px;
+      display: block;
     }
     .carousel-arrow {
       position: absolute;
