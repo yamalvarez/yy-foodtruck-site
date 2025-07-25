@@ -42,9 +42,6 @@
       overflow-x: hidden;
     }
     .container {
-      padding: 120px 20px 40px; /* top padding aumentado para evitar superposición */
-      max-width: 1000px;
-      margin: 0 auto;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -128,7 +125,6 @@
       padding: 40px;
       margin-top:30px;
     }
-
     .text-section {
       flex: 1;
       max-width: 500px;
@@ -157,9 +153,7 @@
     .carousel {
       position: relative;
       width: 100%;
-      max-width: 780px;
-      height: 450px; /* fijo */
-      overflow: hidden;
+      height: 450px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -269,7 +263,6 @@
       .text-section {
         max-width: 100%;
         margin-top: 0;
-        margin-right: 50px;
       }
 
       .text-section .cta-button {
@@ -278,9 +271,10 @@
       }
 
       .carousel {
-        width: 100%;
-        max-width: 100%;
-        padding: 0 15px;
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        max-width: 100vw;
         box-sizing: border-box;
       }
       .carousel-arrow {
