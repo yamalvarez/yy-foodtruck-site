@@ -109,6 +109,29 @@
       margin-left: 20px;
       font-weight: bold;
     }
+    @media (min-width: 769px) {
+      .instagram-wrapper {
+        display: flex;
+        justify-content: center;
+        margin: 40px auto;
+        width: 100%;
+      }
+
+      blockquote.instagram-media {
+        max-width: 780px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        border: none;
+        overflow: visible;
+      }
+
+      .instagram-media iframe {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 500px;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
