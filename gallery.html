@@ -16,7 +16,17 @@
     html, body {
       overflow-x: hidden;
     }
-
+    .modal {
+      display: none; /* hidden by default */
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8); /* black background with opacity */
+    }
     header {
       position: fixed;
       top: 0;
@@ -171,17 +181,7 @@
       #estimateModal {
         overflow-x: hidden;
       }
-      .modal {
-        display: none; /* hidden by default */
-        position: fixed;
-        z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.8); /* black background with opacity */
-      }
+
       @media (max-width: 768px) {
         html, body {
           overflow-x: hidden;
