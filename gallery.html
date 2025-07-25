@@ -82,19 +82,31 @@
       margin: 0 auto !important;
       max-width: 100% !important;
     }
+    .instagram-section {
+      margin: 80px auto;
+      text-align: center;
+    }
+    .instagram-section h2 {
+      color: #f1c40f;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 20px;
+    }
+
     .instagram-wrapper {
-      max-width: 780px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .instagram-media {
-      width: 780px !important;
-      max-width: 100% !important;
+      width: 100% !important;
+      max-width: 780px !important;
+      min-height: 500px !important;
       margin: 0 auto !important;
-      display: block !important;
-      max-height: 500px; /* 🔥 Ajusta según prefieras */
-      overflow: hidden;
     }
+
 
     .menu-toggle {
       display: none;
@@ -207,14 +219,18 @@
     <section> <a target="_blank" href="https://www.tiktok.com/@yyfoodtruck">Watch more on TikTok</a> </section>
   </blockquote>
 </div>
-<div class="instagram-wrapper">
-  <blockquote
-          class="instagram-media"
-          data-instgrm-permalink="https://www.instagram.com/reel/DMJMjHpOtF0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-          data-instgrm-version="14"
-          style="background:#000; border:0; margin:20px auto; width:100%;">
-  </blockquote>
+<div class="instagram-section">
+  <h2>See More on Instagram</h2>
+  <div class="instagram-wrapper">
+    <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/reel/DMJMjHpOtF0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+            data-instgrm-version="14"
+            style="background:#000; border:0; margin:0 auto; width:100%; max-width:780px;">
+    </blockquote>
+  </div>
 </div>
+
 <main>
   <h1>Our Full Gallery</h1>
   <div id="galleryContainer" class="gallery-container">
