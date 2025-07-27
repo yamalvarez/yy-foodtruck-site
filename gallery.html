@@ -414,14 +414,16 @@
         let imagePath;
         switch (selected) {
           case '14ft':
-          case '16ft':
             imagePath = 'images/food_truck_14.jpg';
+            break
+          case '16ft':
+            imagePath = 'images/food_truck_16.jpeg';
             break;
           case '18ft':
             imagePath = 'images/food-truck-18.jpeg';
             break;
           default:
-            imagePath = 'images/food_truck_16.jpeg';
+            imagePath = 'images/food-truck-18.jpeg';
         }
         previewImage.src = imagePath;
       });
